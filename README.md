@@ -18,7 +18,7 @@ You should be able to automatically install from the AUR repository with a tool 
 
 _or_
 
-`git clone https://aur.archlinux.org/package-query.git`
+`git clone https://aur.archlinux.org/davinci-resolve-studio.git`
 
 * run makepkg inside the directory (as your regular user):
 
