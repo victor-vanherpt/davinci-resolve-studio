@@ -28,7 +28,7 @@ _or_
 
 * and finally install the created package with pacman (as root):
 
-`pacman -U davinci-resolve-studio-14.2-0-x86_64.pkg.tar.xz`
+`pacman -U davinci-resolve-studio-14.2.1-0-x86_64.pkg.tar.xz`
 
 ## TODO: 
 I don't use BlackMagic's panels, so I didn't bother to add the BMDPanel support drivers & daemon. If someone could test it, I might add it to the package.
