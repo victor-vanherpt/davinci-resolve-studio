@@ -2,6 +2,12 @@
 Archlinux Package to install Blackmagic's Davinci Resolve Studio, based on https://aur.archlinux.org/packages/davinci-resolve/
 
 This package adds the package name and sha256 from the studio version zip file, and also adds an udev rule for the dongle. Please let me know of any [issues here](https://github.com/codibit/davinci-resolve-studio/issues).
+
+## ACTIVATION:
+
+If you're using a dongle, remember to have it plugged in before starting the application.
+
+If you're using an activation/serial number, remember to run the app as root in order to activate.
 ## INSTALLATION:
 
 To install, simply download the Davinci Resolve Studio installer from [Blackmagic's 
@@ -9,9 +15,9 @@ website](https://www.blackmagicdesign.com/products/davinciresolve/) to your Down
 file (where X.Y.Z is te current package version) should be placed into /home/$youruser/Downloads or inside the package directory.
 
 ### Automatic installation:
-You should be able to automatically install from the AUR repository with a tool like [yaourt](https://archlinux.fr/yaourt-en):
+You should be able to automatically install from the AUR repository with a tool such as [yay](https://github.com/Jguer/yay):
 
-`yaourt davinci-resolve-studio`
+`yay -S davinci-resolve-studio`
 
 ### Manual installation:
 * If you want to manually install, clone this repository from [GitHub](https://github.com/codibit/davinci-resolve-studio) _or_ [AUR](https://aur.archlinux.org/packages/davinci-resolve-studio/):
