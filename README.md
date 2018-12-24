@@ -3,6 +3,9 @@ Archlinux Package to install Blackmagic's Davinci Resolve Studio, based on https
 
 This package adds the package name and sha256 from the studio version zip file, and also adds an udev rule for the dongle. Please let me know of any [issues here](https://github.com/codibit/davinci-resolve-studio/issues).
 
+## ATTENTION:
+A new packaging structure has been released since resolve 15.2.2, so this package might need some testing. Please report any issues or improvements.
+
 ## ACTIVATION:
 
 If you're using a dongle, remember to have it plugged in before starting the application.
@@ -38,8 +41,5 @@ _or_
 
 `pacman -U davinci-resolve-studio-X.Y.Z-0-x86_64.pkg.tar.xz`
 
-## TODO: 
-I don't use BlackMagic's panels, so I didn't bother to add the BMDPanel support drivers & daemon. If someone could test it, I might add it to the package.
-
 ## CREDITS:
-All the package credits go to the [davinci-resolve](https://aur.archlinux.org/packages/davinci-resolve/) package mantainer and contribuitors in [https://aur.archlinux.org/packages/davinci-resolve/](https://aur.archlinux.org/packages/davinci-resolve/)
+All the package credits go to the [davinci-resolve](https://aur.archlinux.org/packages/davinci-resolve/) package mantainer and contribuitors in [https://aur.archlinux.org/packages/davinci-resolve/](https://aur.archlinux.org/packages/davinci-resolve/) and [Daniel Tufvesson](http://www.danieltufvesson.com)'s [makeresolvedeb script](http://www.danieltufvesson.com/makeresolvedeb)
