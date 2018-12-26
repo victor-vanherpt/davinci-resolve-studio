@@ -11,32 +11,51 @@
 pkgname=davinci-resolve-studio
 _pkgname=resolve
 pkgver=15.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Professional A/V post-production software suite'
 arch=('x86_64')
 url="https://www.blackmagicdesign.com/"
 license=('Commercial')
 depends=('glu' 'gtk2' 'gstreamer' 'libpng12' 'lib32-libpng12' 'ocl-icd' 'openssl-1.0'
          'opencl-driver' 'qt4' 'qt5-base' 'qt5-svg' 'qt5-webkit'
-         'qt5-webengine' 'qt5-websockets' 'xdg-user-dirs' 'libisoburn')
+         'qt5-webengine' 'qt5-websockets')
+makedepends=('xdg-user-dirs' 'unzip' 'libisoburn')
 options=('!strip')
 conflicts=('davinci-resolve-beta' 'davinci-resolve' 'davinci-resolve-studio-beta')
 install='davinci-resolve-studio.install'
 
-DOWNLOADS_DIR=`xdg-user-dir DOWNLOAD`
 
-if [ ! -f ${pkgdir}/DaVinci_Resolve_Studio_${pkgver}_Linux.zip ]; then
-  if [ -f $DOWNLOADS_DIR/DaVinci_Resolve_Studio_${pkgver}_Linux.zip ]; then
-    ln -sfn $DOWNLOADS_DIR/DaVinci_Resolve_Studio_${pkgver}_Linux.zip ${pkgdir}
-  else
-    msg2 "The package can be downloaded here: https://www.blackmagicdesign.com/products/davinciresolve/"
-    error "DaVinci_Resolve_${pkgver}_Linux.zip not found in the build directory or $DOWNLOADS_DIR"
-    sleep 3
-  fi
-fi
 
-source=("local://DaVinci_Resolve_Studio_${pkgver}_Linux.zip" "davinci-resolve-studio.install" "75-davincipanel.rules" "75-sdx.rules" "davinci-resolve-studio.desktop")
-sha256sums=('e6b0947d48dd702ade93c455bb7c5e82e0be3484e5927ba56741a02b947e3bb2' '4ec3244fd4645be72a2a71070daf529ac661d2d60c7bd99ab3a47215f24eeaa3' '364c3b1b0ee39ce009840dba93e22e141e7aadc27f3254dbbf23d1b94c38a641' '5190c0c42d3c84ae4691c73b6fe28e7f471da6a247e7400e7b5181a6c0c81bee' '7da47b9afed6f82841c2385d37e12ba575989cdd347f7e88399632d53b0a4b36' )
+
+source=("davinci-resolve-studio.install" "75-davincipanel.rules" "75-sdx.rules" "davinci-resolve-studio.desktop")
+sha256sums=('ced9031d69d98222b9fd16ea4b776e356076a0e9286547ee2a8a5b4d07850799' '364c3b1b0ee39ce009840dba93e22e141e7aadc27f3254dbbf23d1b94c38a641' '5190c0c42d3c84ae4691c73b6fe28e7f471da6a247e7400e7b5181a6c0c81bee' '7da47b9afed6f82841c2385d37e12ba575989cdd347f7e88399632d53b0a4b36' )
+
+prepare(){
+	_archive="DaVinci_Resolve_Studio_${pkgver}_Linux.zip"
+    	_archive_sha256sum='e6b0947d48dd702ade93c455bb7c5e82e0be3484e5927ba56741a02b947e3bb2'
+
+	DOWNLOADS_DIR=`xdg-user-dir DOWNLOAD`
+
+	if [ ! -f ${srcdir}/${_archive} ]; then
+		if [ -f $DOWNLOADS_DIR/${_archive} ]; then
+		    ln -sfn $DOWNLOADS_DIR/${_archive} ${srcdir}
+		else
+		    msg2 "The package archive can be downloaded here: https://www.blackmagicdesign.com/products/davinciresolve/"
+		    msg2 "Please remember to put a downloaded package ${_archive} into the build directory or $DOWNLOADS_DIR"
+		    exit 1
+		fi
+	fi
+
+# check integrity
+	if ! echo "${_archive_sha256sum} ${srcdir}/${_archive}" | sha256sum -c --quiet; then
+	echo "Invalid checksum for ${_archive}"
+	return 1
+	fi
+
+	    
+# extract package
+	    unzip -f ${srcdir}/${_archive}
+}
 
 package() {
 
@@ -48,7 +67,7 @@ package() {
 	mkdir -p "${pkgdir}/opt/${_pkgname}/"{configs,easyDCP,logs,scripts,.LUT,.license,.crashreport,DolbyVision,Fairlight,Media,"Resolve Disk Database"}
 
 # Extract DaVinci Resolve Archive
-xorriso -osirrox on -indev "${srcdir}/DaVinci_Resolve_Studio_${pkgver}_Linux.run" -extract / "${srcdir}/unpack"
+	xorriso -osirrox on -indev "${srcdir}/DaVinci_Resolve_Studio_${pkgver}_Linux.run" -extract / "${srcdir}/unpack"
 
 # Copy objects
 
@@ -80,6 +99,19 @@ xorriso -osirrox on -indev "${srcdir}/DaVinci_Resolve_Studio_${pkgver}_Linux.run
 	ln -s /usr/lib/libgstbase-1.0.so   libs/libgstbase-0.10.so.0
 	ln -s /usr/lib/libgstreamer-1.0.so libs/libgstreamer-0.10.so.0
 
+#Set proper permissions
+	chmod -R a+rw "${pkgdir}/opt/resolve/configs"
+	chmod -R a+rw "${pkgdir}/opt/resolve/easyDCP"
+	chmod -R a+rw "${pkgdir}/opt/resolve/logs"
+	chmod -R a+rw "${pkgdir}/opt/resolve/Developer"
+	chmod -R a+rw "${pkgdir}/opt/resolve/DolbyVision"
+	chmod -R a+rw "${pkgdir}/opt/resolve/LUT"
+	chmod -R a+rw "${pkgdir}/opt/resolve/.LUT"
+	chmod -R a+rw "${pkgdir}/opt/resolve/.license"
+	chmod -R a+rw "${pkgdir}/opt/resolve/.crashreport"
+	chmod -R a+rw "${pkgdir}/opt/resolve/Resolve Disk Database"
+	chmod -R a+rw "${pkgdir}/opt/resolve/Fairlight"
+	chmod -R a+rw "${pkgdir}/opt/resolve/Media"
 
 #Installing udev rules for panels and dongles
 	

@@ -2,18 +2,7 @@ post_install() {
 test -e /opt/resolve/configs/config.dat || cp /opt/resolve/configs/config.dat-pkg-default /opt/resolve/configs/config.dat
 test -e /opt/resolve/configs/log-conf.xml || cp /opt/resolve/configs/log-conf.xml-pkg-default /opt/resolve/configs/log-conf.xml
 test -e /opt/resolve/DolbyVision/config.bin || cp /opt/resolve/DolbyVision/config.bin-pkg-default /opt/resolve/DolbyVision/config.bin
-chmod -R a+rw /opt/resolve/configs
-chmod -R a+rw /opt/resolve/easyDCP
-chmod -R a+rw /opt/resolve/logs
-chmod -R a+rw /opt/resolve/Developer
-chmod -R a+rw /opt/resolve/DolbyVision
-chmod -R a+rw /opt/resolve/LUT
-chmod -R a+rw /opt/resolve/.LUT
-chmod -R a+rw /opt/resolve/.license
-chmod -R a+rw /opt/resolve/.crashreport
-chmod -R a+rw /opt/resolve/"Resolve Disk Database"
-chmod -R a+rw /opt/resolve/Fairlight
-chmod -R a+rw /opt/resolve/Media
+
 
     tput bold
 	echo "Remember to open Davinci Resolve Studio as root for activation if you have an activation code instead of a dongle"
