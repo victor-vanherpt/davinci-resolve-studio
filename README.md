@@ -42,4 +42,4 @@ _or_
 `pacman -U davinci-resolve-studio-X.Y.Z-0-x86_64.pkg.tar.xz`
 
 ## CREDITS:
-All the package credits go to the [davinci-resolve](https://aur.archlinux.org/packages/davinci-resolve/) package mantainer and contribuitors in [https://aur.archlinux.org/packages/davinci-resolve/](https://aur.archlinux.org/packages/davinci-resolve/) and [Daniel Tufvesson](http://www.danieltufvesson.com)'s [makeresolvedeb script](http://www.danieltufvesson.com/makeresolvedeb)
+All the package credits go to the [davinci-resolve](https://aur.archlinux.org/packages/davinci-resolve/) package mantainer and contributors in [https://aur.archlinux.org/packages/davinci-resolve/](https://aur.archlinux.org/packages/davinci-resolve/) and [Daniel Tufvesson](http://www.danieltufvesson.com)'s [makeresolvedeb script](http://www.danieltufvesson.com/makeresolvedeb)
