@@ -8,7 +8,7 @@
 # Hardware support is limited. Nvidia cards should work fine.
 # If you're running a hybrid setup, try with primusrun/optirun.
 
-pkgname=davinci-resolve-studio
+pkgname=davinci-resolve
 _pkgname=resolve
 pkgver=15.2.2
 pkgrel=4
@@ -21,15 +21,15 @@ depends=('glu' 'gtk2' 'gstreamer' 'libpng12' 'lib32-libpng12' 'ocl-icd' 'openssl
          'qt5-webengine' 'qt5-websockets')
 makedepends=('xdg-user-dirs' 'unzip' 'libisoburn')
 options=('!strip')
-conflicts=('davinci-resolve-beta' 'davinci-resolve' 'davinci-resolve-studio-beta')
-install='davinci-resolve-studio.install'
-source=("davinci-resolve-studio.install" "75-davincipanel.rules" "75-sdx.rules" "davinci-resolve-studio.desktop")
-sha256sums=('ced9031d69d98222b9fd16ea4b776e356076a0e9286547ee2a8a5b4d07850799' '364c3b1b0ee39ce009840dba93e22e141e7aadc27f3254dbbf23d1b94c38a641' 
+conflicts=('davinci-resolve-beta' 'davinci-resolve-studio' 'davinci-resolve-studio-beta')
+install='davinci-resolve.install'
+source=("davinci-resolve.install" "davinci-resolve.desktop")
+sha256sums=('be3ed61881c2a74b60237e4003c8147423916b1555140b5b02b7bc64975b4bbe' '1552d5921113cdd23bc162159468c4eb908c54c0eb91f447cc3e55264880204b' 
 '5190c0c42d3c84ae4691c73b6fe28e7f471da6a247e7400e7b5181a6c0c81bee' '9e6471ed9e7ef8dbc70ae8f67dd21a2003768d71c566e83bd46719da4ae1e224' )
 
 prepare(){
-	_archive="DaVinci_Resolve_Studio_${pkgver}_Linux.zip"
-    	_archive_sha256sum='e6b0947d48dd702ade93c455bb7c5e82e0be3484e5927ba56741a02b947e3bb2'
+	_archive="DaVinci_Resolve_${pkgver}_Linux.zip"
+    	_archive_sha256sum='4330673cbe62f1ce2292d0357e20503233124bbb5a1b7752ce83b4befcf29497'
 
 	DOWNLOADS_DIR=`xdg-user-dir DOWNLOAD`
 
@@ -64,7 +64,7 @@ package() {
 	mkdir -p "${pkgdir}/opt/${_pkgname}/"{configs,easyDCP,logs,scripts,.LUT,.license,.crashreport,DolbyVision,Fairlight,Media,"Resolve Disk Database"}
 
 # Extract DaVinci Resolve Archive
-	xorriso -osirrox on -indev "${srcdir}/DaVinci_Resolve_Studio_${pkgver}_Linux.run" -extract / "${srcdir}/unpack"
+	xorriso -osirrox on -indev "${srcdir}/DaVinci_Resolve_${pkgver}_Linux.run" -extract / "${srcdir}/unpack"
 
 # Copy objects
 
@@ -110,12 +110,8 @@ package() {
 	chmod -R a+rw "${pkgdir}/opt/resolve/Fairlight"
 	chmod -R a+rw "${pkgdir}/opt/resolve/Media"
 
-#Installing udev rules for panels and dongles
-	
-	install -Dm644 ${srcdir}/75-davincipanel.rules "${pkgdir}/usr/lib/udev/rules.d/75-davincipanel.rules"
-	install -Dm644 ${srcdir}/75-sdx.rules "${pkgdir}/usr/lib/udev/rules.d/75-sdx.rules"
 
 #Install .desktop launcher
-	install -Dm644 "${srcdir}/davinci-resolve-studio.desktop" "${pkgdir}/usr/share/applications/DaVinci Resolve Studio.desktop"
+	install -Dm644 "${srcdir}/davinci-resolve.desktop" "${pkgdir}/usr/share/applications/DaVinci Resolve.desktop"
 
 }
