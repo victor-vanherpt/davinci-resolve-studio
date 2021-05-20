@@ -1,4 +1,6 @@
-# davinci-resolve-studio for Arch Linux
+#Package no longer mantained. Please check latest versions at https://aur.archlinux.org/packages/davinci-resolve-studio
+
+#davinci-resolve-studio for Arch Linux
 Archlinux Package to install Blackmagic's Davinci Resolve Studio, based on https://aur.archlinux.org/packages/davinci-resolve/
 
 This package adds the package name and sha256 from the studio version zip file, and also adds an udev rule for the dongle. Please let me know of any [issues here](https://github.com/codibit/davinci-resolve-studio/issues).
